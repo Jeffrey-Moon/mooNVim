@@ -20,4 +20,4 @@ rm -rf "$TARGET_CONFIG"
 # Establish the complete master repo folder symlink
 ln -s "$REPO_DIR" "$TARGET_CONFIG"
 
-echo "✨ System linked! Run 'nvim' to initialize your 23 plugins."
+echo "✨ System linked!"

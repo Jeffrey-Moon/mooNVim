@@ -23,4 +23,4 @@ $RepoDir = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 # Create a robust Directory Junction link targeting our configuration workspace repository
 cmd /c mklink /J "$TargetConfig" "$RepoDir"
 
-Write-Host "✨ System linked! Run 'nvim' to initialize your 23 plugins." -ForegroundColor Green
+Write-Host "✨ System linked!" -ForegroundColor Green
