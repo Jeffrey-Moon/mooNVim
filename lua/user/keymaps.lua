@@ -11,8 +11,8 @@ local opts = { noremap = true, silent = true }
 keymap("n", "<Leader>nh", ":nohlsearch<CR>", opts)
 
 -- Window management (Splits)
-keymap("n", "<Leader>sv", "<C-w>v", opts) -- split window vertically
-keymap("n", "<Leader>sh", "<C-w>s", opts) -- split window horizontally
+keymap("n", "<Leader>sv", "<C-w>v", opts)     -- split window vertically
+keymap("n", "<Leader>sh", "<C-w>s", opts)     -- split window horizontally
 keymap("n", "<Leader>sx", ":close<CR>", opts) -- close current split window
 
 -- Easy window navigation (No more Ctrl+W then H)
@@ -42,3 +42,7 @@ vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { desc = "Signature hel
 -- Paste text and force it to instantly conform to your file's 4-space rules
 vim.keymap.set("n", "p", "p`[v`]=", { noremap = true, silent = true, desc = "Paste and auto-indent" })
 vim.keymap.set("n", "P", "P`[v`]=", { noremap = true, silent = true, desc = "Paste and auto-indent" })
+
+-- Stay in visual mode after indenting
+vim.keymap.set("v", ">", ">gv", { noremap = true, silent = true, desc = "Indent block right and re-select" })
+vim.keymap.set("v", "<", "<gv", { noremap = true, silent = true, desc = "Indent block left and re-select" })

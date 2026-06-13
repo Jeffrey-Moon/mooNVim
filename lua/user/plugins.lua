@@ -94,13 +94,13 @@ require("lazy").setup({
             "L3MON4D3/LuaSnip", -- Snippet engine (required by cmp)
         },
         config = function()
-            -- 1. Setup Mason to handle external binaries
+            -- Setup Mason to handle external binaries
             require("mason").setup()
             require("mason-lspconfig").setup({
                 ensure_installed = { "lua_ls", "pyright", "clangd", "rust_analyzer" },
             })
 
-            -- 2. Setup Autocompletion Engine
+            -- Setup Autocompletion Engine
             local cmp = require("cmp")
             local luasnip = require("luasnip")
 
@@ -126,7 +126,7 @@ require("lazy").setup({
                 }),
             })
 
-            -- 3. Modern Core LSP Initialization (Fixes the Deprecation Warning)
+            -- Modern Core LSP Initialization (Fixes the Deprecation Warning)
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
             local servers = { "lua_ls", "pyright", "clangd", "rust_analyzer" }
 
@@ -185,17 +185,31 @@ require("lazy").setup({
         config = function()
             require("neo-tree").setup({
                 window = {
-                    width = 30, -- Sidebar width
+                    width = 30,
+                    mappings = {
+                        -- Go UP a directory level with the '-' key
+                        ["-"] = "navigate_up",
+
+                        -- Go INTO a highlighted directory with lowercase 'l'
+                        ["<c-cr>"] = "set_root",
+                    },
                 },
                 filesystem = {
+                    hijack_netrw_behavior = "open_default",
                     filtered_items = {
-                        visible = true, -- Show hidden files (like .gitignore or .config)
+                        visible = true,
+                        show_hidden_count = false,
+                        hide_dotfiles = false,
+                        hide_gitignored = false,
                     },
                     follow_current_file = {
-                        enabled = true, -- Automatically focus active file in the tree
+                        enabled = true,
                     },
+                    -- This is the crucial flag! This forces the top header bar
+                    -- to actively render and shift paths as you navigate
+                    bind_to_cwd = false,
+                    use_libuv_file_watcher = true,
                 },
-                -- Native Neo-tree option to force relative numbers inside its active buffer
                 event_handlers = {
                     {
                         event = "neo_tree_buffer_enter",
@@ -204,7 +218,7 @@ require("lazy").setup({
                             vim.opt_local.relativenumber = true
                         end,
                     },
-                }
+                },
             })
         end,
     },
